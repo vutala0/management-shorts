@@ -11,32 +11,57 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  min-height: 100dvh;
   background: #f5f6fa;
-  padding: 20px;
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
 `;
 
 const CardStack = styled.div`
   position: relative;
   width: 100%;
-  max-width: 400px;
-  height: 500px;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 360px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const EmptyState = styled.div`
   text-align: center;
-  padding: 20px;
+  padding: 24px;
   color: #7f8c8d;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 320px;
+  margin: 0 auto;
+
+  h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #95a5a6;
+  }
 `;
 
 const StatsContainer = styled.div`
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
   background: white;
-  padding: 15px;
-  border-radius: 15px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  max-width: 200px;
 `;
 
 const StatItem = styled.div`
@@ -45,35 +70,46 @@ const StatItem = styled.div`
   gap: 8px;
   margin-bottom: 8px;
   color: #2c3e50;
+  font-size: 14px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 `;
 
 const StreakBadge = styled.div`
   background: linear-gradient(45deg, #f1c40f, #f39c12);
   color: white;
-  padding: 5px 10px;
+  padding: 4px 12px;
   border-radius: 20px;
   font-weight: bold;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
+  font-size: 14px;
+  margin-bottom: 8px;
 `;
 
 const SwipeCounter = styled.div`
   position: fixed;
-  bottom: 20px;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  gap: 20px;
+  gap: 24px;
   background: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border-radius: 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 100;
 `;
 
 const Counter = styled.div`
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   color: #2c3e50;
+  font-size: 16px;
 `;
 
 const ManagementShorts: React.FC = () => {
@@ -107,7 +143,7 @@ const ManagementShorts: React.FC = () => {
     }
 
     setCurrentIndex(prev => prev + 1);
-    await loadUserStats(); // Refresh stats after each swipe
+    await loadUserStats();
   };
 
   const currentCard = insights.insights[currentIndex];
@@ -115,13 +151,11 @@ const ManagementShorts: React.FC = () => {
   return (
     <Container>
       <StatsContainer>
+        <StreakBadge>
+          🔥 {userStats.streak} Day Streak
+        </StreakBadge>
         <StatItem>
-          <StreakBadge>
-            🔥 {userStats.streak} Day Streak
-          </StreakBadge>
-        </StatItem>
-        <StatItem>
-          <span>📊 Total Cards:</span>
+          <span>📊 Total:</span>
           <span>{userStats.totalCards}</span>
         </StatItem>
         <StatItem>
