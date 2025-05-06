@@ -1,3 +1,4 @@
+// Mobile-optimized ManagementShorts component
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
